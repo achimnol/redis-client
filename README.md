@@ -17,4 +17,4 @@ An experimental async-native Redis client to improve HA support for modern Pytho
 
 ## Ideation
 
-[Refer the wiki.](https://github.com/achimnol/redis-client/wiki/Overall-API-scheme)
+[Refer the wiki.](https://github.com/achimnol/redis-client/wiki)
