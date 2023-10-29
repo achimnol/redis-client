@@ -30,6 +30,7 @@ client = await redis.Client(
         "keepalive_interval": ...,
         ...,
     },
+    ssl_options={...},
     retry_policy=redis.RetryPolicy(  # (TODO) Backoff policys may differ by exception types.
         backoff=...,
         exceptions=[
@@ -75,3 +76,7 @@ client = await redis.ClusterClient(
 ### Difficulties
 
 * How do we distinguish user-specified intended timeouts in blocking commands and server-side timeouts (e.g., due to overloads)?
+* Depending on the exceptions, we may need to perform additional actions or skip backoffs when retrying:
+  - `ServerResponseTimeout` (due to blocking command): skip backoff
+  - Recycle the connection object in the connection pool (close the current one, add a new one, and grab the created one)
+    - If possible, we should reuse the connection object and the underlying socket to reduce the kernel context switching overhead.
