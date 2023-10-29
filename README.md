@@ -20,7 +20,7 @@ An experimental async-native Redis client to improve HA support for modern Pytho
 import redis
 
 client = await redis.Client(
-    connection_pool_opts={
+    connection_pool_opts={  # using TypedDict
         "max_wait": ...,
         ...,
     },
@@ -50,6 +50,22 @@ async with client:
 async with client:
     async for attempt in client.retry(redis.RetryPolicy(...)):  # locally overridable
         response = await client.execute_blocking("xread", ...)
+```
+
+```
+import redis
+
+client = await redis.SentinelClient(
+    connection_pool_opts={...},
+    socket_opts={...},
+    retry_policy=redis.RetryPolicy(...),
+)
+
+client = await redis.ClusterClient(
+    connection_pool_opts={...},
+    socket_opts={...},
+    retry_policy=redis.RetryPolicy(...),
+)
 ```
 
 > **Note**
