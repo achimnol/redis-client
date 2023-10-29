@@ -48,9 +48,13 @@ async with client:
         await client.execute(pipe)
 
 async with client:
-    async for attempt in client.retry():
+    async for attempt in client.retry(redis.RetryPolicy(...)):  # locally overridable
         response = await client.execute_blocking("xread", ...)
 ```
 
 > **Note**
 > At the first stage, we will simple serialize and deserialize the request/response using the raw RESP3 spec.
+
+### Difficulties
+
+* How do we distinguish user-specified intended timeouts in blocking commands and server-side timeouts (e.g., due to overloads)?
