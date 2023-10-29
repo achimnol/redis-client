@@ -7,6 +7,7 @@ An experimental async-native Redis client to improve HA support for modern Pytho
 * Provide a proper blocking connection pool implementation
 * Distinguish different sources of timeouts
 * Explicitly support retries for blocking commands
+* Clear exception hierarchy: Client / Server (like aiohttp)
 
 ## Non-goals
 
@@ -52,7 +53,7 @@ async with client:
         response = await client.execute_blocking("xread", ...)
 ```
 
-```
+```python
 import redis
 
 client = await redis.SentinelClient(
