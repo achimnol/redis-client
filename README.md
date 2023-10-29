@@ -70,7 +70,7 @@ client = await redis.ClusterClient(
 ```
 
 > **Note**
-> At the first stage, we will simple serialize and deserialize the request/response using the raw RESP3 spec.
+> At the first stage, we will simply serialize and deserialize the request/response using the raw RESP3 spec instead of providing full functional wrappers of all Redis commands.
 
 ### Difficulties
 
